@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - '6'
+deploy:
+  provider: npm
+  email: contacto@platan.us
+  api_key:
+    secure: OzRciZ6BQdk/3k2eABKgmqNA692dHKBNZO0Bh71xSxHz3DPLhQZVP0ZjvSXrFUxX6zd2cZkOJBUqtRUi2ybCMtMU03B1GSuS7/rBikdhYyEVq8hLENKy25Z2cPkXngkUJsaTE+WQtpcAEqBHLhjMKec1yKbQz7OuHRIIww9QB9vlEw4hlq79x7mO7yHls34MVkc6Xills9lFibhgJFcdB6vhl+ZN2CQYwddJxuRST75mR6dix4ZBq/V4KJSOHN6jRBmmceZoR1ZcClX7lEtG7lGXyXUINlv99CV/shX2EpgBz9ckkNxuPMlE8KY50/nxYSnK9LjKju23vz+4KoxTREMpdrlABtr30Yis5wpUXS3t8V75NLwvyDIUFbl/XyceSXELp32autLocyP526r6KiruWHGkLebk+YJ5Nd+IOHwMgjH4o3wL3HmprfQhY7aznDEa3aMr4ARJPJevMUrux+Wg8Igqhi7bBMPY8zmuIFPv6wNE0ilpbBnP7tL3CEACYfT7Vi9AY0QTlUzGoL2eXDLa/39aId1zOXx4klgelUwMZAmcDwK/TCiY9vyqjVf2NcamdEmXv567/MAkUEh38jEZzYYFdB8XhBsBIhWH9kAjVWZ74zzBUfUs7Dar+Y8tXMDt075Sz3xYCFa6i8+HbIrqnmCF96fUlCwAe8qH5ys=
+  on:
+    tags: true
+    repo: platanus/generator-pl-ionic
