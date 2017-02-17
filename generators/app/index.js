@@ -1,36 +1,21 @@
 'use strict';
-var Generator = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
+const Generator = require('yeoman-generator');
+const process = require('process');
+const exec = require('child_process').execSync;
 
 module.exports = Generator.extend({
-  prompting: function () {
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the delightful ' + chalk.red('generator-pl-ionic') + ' generator!'
-    ));
-
-    var prompts = [{
-      type: 'confirm',
-      name: 'someAnswer',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
-
-    return this.prompt(prompts).then(function (props) {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
-    }.bind(this));
-  },
-
-  writing: function () {
+  writing() {
     this.fs.copy(
       this.templatePath('dummyfile.txt'),
       this.destinationPath('dummyfile.txt')
     );
   },
-
-  install: function () {
-    this.installDependencies();
-  }
+  installingIonicCli() {
+    const folderName = process.cwd().split('/').pop();
+    exec('yarn global add ionic@latest cordova', { stdio: 'inherit' });
+    exec(`ionic start ${folderName} --v2 --skip-npm -t blank`, { stdio: 'inherit' });
+    exec(`cp -r ${folderName}/. .`);
+    exec(`rm -rf ${folderName}`);
+    exec('yarn', { stdio: 'inherit' });
+  },
 });
