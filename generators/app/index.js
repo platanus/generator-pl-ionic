@@ -37,4 +37,7 @@ module.exports = Generator.extend({
     exec('rm -f .editorconfig');
     exec('yarn', { stdio: 'inherit' });
   },
+  end() {
+    this.composeWith(require.resolve('generator-git-init'), { commit: 'Initial commit' });
+  },
 });
