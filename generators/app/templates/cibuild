@@ -1,0 +1,98 @@
+#!/usr/bin/env ruby
+require 'json'
+require 'open3'
+require 'fileutils'
+
+module CiIonicBuilder
+  extend self
+
+  def build(option)
+    login
+    case option
+    when "compile"
+      compile
+    when "staging"
+      upload
+    when "production"
+      fastlane
+    end
+  end
+
+  def compile
+    run_command("node copy-env-config.js --env #{!!ENV['CIRCLE_TAG'] ? 'production' : 'staging'}")
+    run_command("yarn run build")
+    if !!ENV['CIRCLE_TAG']
+      build_production "android"
+      build_production "ios"
+    end
+  end
+
+  def fastlane
+    puts "upload to app store goes here"
+  end
+
+  def build_production(platform)
+    build_id = build_package(platform)
+    save_package(build_id)
+  end
+
+  def upload
+    run_command("ionic upload")
+  end
+
+  def login
+    run_command("ionic login")
+  end
+
+  def get_app_clean_name
+    file = File.read('ionic.config.json')
+    data_hash = JSON.parse(file)
+    app_name = data_hash['name']
+    app_name.downcase.gsub(/[^a-zA-Z0-9_]/, "")
+  end
+
+  def build_package(platform)
+    clean_name = get_app_clean_name
+    build_id = nil
+    cmd = "ionic package build #{platform} --profile #{clean_name}_production --release"
+
+    run_command(cmd) do |line|
+      result = line.match(/Build ID: (\d+)/)
+      build_id = result[1] unless result.nil?
+    end
+
+    wait_for_build_success(build_id)
+    build_id
+  end
+
+  def wait_for_build_success(build_id)
+    build_info = nil
+    while (build_info =~ /SUCCESS/).nil?
+      build_info = `ionic package info #{build_id}`
+      puts 'waiting for download...'
+      sleep(5)
+    end
+  end
+
+  def save_package(build_id)
+    run_command("ionic package download #{build_id}") do |download_result|
+      file_path = download_result.match(/Wrote: (.+)/)
+      if file_path
+        file_name = File.basename(file_path[1])
+        FileUtils.mv(file_path[1], "#{ENV['CIRCLE_ARTIFACTS']}/#{file_name}")
+      end
+    end
+  end
+
+  def run_command(cmd, &block)
+    Open3.popen2e(cmd) do |_stdin, stdout_err, wait_thr|
+      while line = stdout_err.gets
+        puts line
+        block&.call(line)
+      end
+      raise unless wait_thr.value.exitstatus === 0
+    end
+  end
+end
+
+CiIonicBuilder.build(ARGV[0])
