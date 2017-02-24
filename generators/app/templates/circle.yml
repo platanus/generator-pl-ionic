@@ -1,0 +1,30 @@
+machine:
+  node:
+    version: 6.9.1
+  ruby:
+    version: '2.3'
+  environment:
+      PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+dependencies:
+  override:
+    - yarn
+    - yarn g add ionic
+  cache_directories:
+    - ~/.cache/yarn
+compile:
+  override:
+    - ./cibuild compile
+deployment:
+  master:
+    branch: master
+    owner: platanus
+    commands:
+      - ./cibuild staging
+  release:
+    tag: /v[0-9]+(\.[0-9]+)*/
+    owner: platanus
+    commands:
+      - ./cibuild production
+test:
+  override:
+    - echo "no tests :("

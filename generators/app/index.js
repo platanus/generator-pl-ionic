@@ -6,8 +6,12 @@ const exec = require('child_process').execSync;
 module.exports = Generator.extend({
   writing() {
     this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
+      this.templatePath('circle.yml'),
+      this.destinationPath('circle.yml')
+    );
+    this.fs.copy(
+      this.templatePath('cibuild'),
+      this.destinationPath('cibuild')
     );
   },
   installingIonicCli() {
