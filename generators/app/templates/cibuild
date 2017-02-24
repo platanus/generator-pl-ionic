@@ -19,10 +19,11 @@ module CiIonicBuilder
   end
 
   def compile
+    run_command("node copy-env-config.js --env #{!!ENV['CIRCLE_TAG'] ? 'production' : 'staging'}")
     run_command("yarn run build")
     if !!ENV['CIRCLE_TAG']
       build_production "android"
-      build_production "ios" # Will fail until certificate generation is ready
+      build_production "ios"
     end
   end
 
