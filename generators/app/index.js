@@ -71,8 +71,8 @@ module.exports = Generator.extend({
     ];
     fs.writeFileSync('ionic.config.json', JSON.stringify(ionicProject, null, 2));
     this.fs.copy(
-      this.templatePath('cibuild'),
-      this.destinationPath('cibuild')
+      this.templatePath('bin/cibuild'),
+      this.destinationPath('bin/cibuild')
     );
     this.fs.copyTpl(
       this.templatePath('README.md'),
