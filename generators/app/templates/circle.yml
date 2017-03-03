@@ -13,18 +13,18 @@ dependencies:
     - ~/.cache/yarn
 compile:
   override:
-    - ./cibuild compile
+    - bin/cibuild compile
 deployment:
   master:
     branch: master
     owner: platanus
     commands:
-      - ./cibuild staging
+      - bin/cibuild staging
   release:
     tag: /v[0-9]+(\.[0-9]+)*/
     owner: platanus
     commands:
-      - ./cibuild production
+      - bin/cibuild production
 test:
   override:
     - echo "no tests :("
