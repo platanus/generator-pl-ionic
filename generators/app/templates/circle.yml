@@ -8,7 +8,7 @@ machine:
 dependencies:
   override:
     - yarn
-    - yarn g add ionic
+    - yarn global add ionic@3.1.2
   cache_directories:
     - ~/.cache/yarn
 compile:

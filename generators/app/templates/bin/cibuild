@@ -41,7 +41,7 @@ module CiIonicBuilder
   end
 
   def login
-    run_command("ionic login")
+    run_command("ionic login $IONIC_EMAIL $IONIC_PASSWORD")
   end
 
   def get_app_clean_name

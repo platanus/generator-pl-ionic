@@ -7,8 +7,8 @@ Yeoman generator for Ionic projects in Platanus.
 First, install [Yeoman](http://yeoman.io) and generator-pl-ionic using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
-yarn add g yo
-yarn add g generator-pl-ionic
+yarn global add yo
+yarn global add generator-pl-ionic
 ```
 
 Then generate your new project:
