@@ -38,7 +38,7 @@ module.exports = Generator.extend({
       exec('yarn global add ionic@latest cordova', { stdio: 'inherit' });
     },
     runIonicGenerator() {
-      exec(`ionic start ${folderName} --v2 --skip-npm -t blank`, { stdio: 'inherit' });
+      exec(`ionic start ${folderName} blank --type ionic-angular --yarn`, { stdio: 'inherit' });
     },
     cleanIonicInstall() {
       exec(`cp -r ${folderName}/. .`);
@@ -84,7 +84,7 @@ module.exports = Generator.extend({
   },
   install: {
     installEnvManager() {
-      this.yarnInstall(['gl-ionic2-env-configuration']);
+      this.yarnInstall(['@ionic/cli-plugin-ionic-angular', 'gl-ionic2-env-configuration']);
     },
   },
   end() {
