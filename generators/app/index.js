@@ -84,7 +84,7 @@ module.exports = Generator.extend({
   },
   install: {
     installEnvManager() {
-      this.yarnInstall(['@ionic/cli-plugin-ionic-angular', 'gl-ionic2-env-configuration']);
+      this.yarnInstall(['@ionic/cli-plugin-ionic-angular', '@ionic/cli-plugin-cordova', 'gl-ionic2-env-configuration']);
     },
   },
   end() {
