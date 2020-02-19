@@ -2,6 +2,12 @@
 
 Yeoman generator for Ionic projects in Platanus.
 
+## Ionic Generator is no longer maintained.
+
+- We will leave the Issues open as a discussion forum only.
+- We do not guarantee a response from us in the Issues.
+- We are no longer accepting pull requests.
+
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and generator-pl-ionic using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
